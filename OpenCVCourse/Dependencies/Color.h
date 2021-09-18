@@ -1,0 +1,21 @@
+#ifndef COLOR_H
+#define COLOR_H
+
+enum Color {
+	CAFE,
+	AZUL,
+	VERDE_CESPED,
+	ROSA,
+	MORADO,
+	VERDE_FOSFO,
+	CELESTE,
+	GRIS,
+	VERDE_FUERTE,
+	NARANJA,
+	ROJO,
+	AMARILLO,
+	FRASCO,
+	VACIO
+};
+
+#endif
