@@ -12,11 +12,26 @@ typedef std::vector<int> vi;
 
 using namespace cv;
 
-bool v2 = true;
+bool v2 = false;
 bool v1 = true;
 
 const std::string imagePath = "Resources/frasquitos5.jpeg";
 
+void outputVideoFromSolutionImages(std::vector<cv::Mat> images) {
+
+	if (images.empty()) {
+		return;
+	}
+	std::string outputPath = imagePath.substr(0, imagePath.find('.')) + ".mp4";
+
+	VideoWriter output(outputPath, VideoWriter::fourcc('a', 'v', 'c', '1'), 1, cv::Size(images[0].size().width, images[0].size().height));
+
+	trav(img, images)
+		output.write(img);
+
+	output.release();
+
+}
 void mainHSVCalibration() {
 
 	Mat img = imread(imagePath);
@@ -100,11 +115,7 @@ int mainText() {
 
 		if (botV2.solve(emptyMoves)) {
 			std::vector<Mat> solutionImages = ImageManipulation::getSolutionImages(botV2.getSolution(), matrix, mappedImg);
-			std::cout << solutionImages.size() << std::endl;
-			trav(img, solutionImages) {
-				imshow("Solution", img);
-				waitKey(0);
-			}
+			outputVideoFromSolutionImages(solutionImages);
 			return 0;
 		}
 
@@ -115,11 +126,7 @@ int mainText() {
 			AlgorithmV1 botV1(matrix, i);
 			if (botV1.solve(emptyMoves)) {
 				std::vector<Mat> solutionImages = ImageManipulation::getSolutionImages(botV1.getSolution(), matrix, mappedImg);
-				std::cout << solutionImages.size() << std::endl;
-				trav(img, solutionImages) {
-					imshow("Solution", img);
-					waitKey(0);
-				}
+				outputVideoFromSolutionImages(solutionImages);
 				return 0;
 			}
 		}
@@ -166,11 +173,7 @@ int main() {
 
 		if (botV2.solve(emptyMoves)) {
 			std::vector<Mat> solutionImages = ImageManipulation::getSolutionImages(botV2.getSolution(), matrix, mappedImg);
-			std::cout << solutionImages.size() << std::endl;
-			trav(img, solutionImages) {
-				imshow("Solution", img);
-				waitKey(0);
-			}
+			outputVideoFromSolutionImages(solutionImages);
 			return 0;
 		}
 
@@ -181,11 +184,7 @@ int main() {
 			AlgorithmV1 botV1(matrix, i);
 			if (botV1.solve(emptyMoves)) {
 				std::vector<Mat> solutionImages = ImageManipulation::getSolutionImages(botV1.getSolution(), matrix, mappedImg);
-				std::cout << solutionImages.size() << std::endl;
-				trav(img, solutionImages) {
-					imshow("Solution", img);
-					waitKey(0);
-				}
+				outputVideoFromSolutionImages(solutionImages);
 				return 0;
 			}
 		}
